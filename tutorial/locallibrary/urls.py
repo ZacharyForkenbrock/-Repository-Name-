@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app.urls')),
 ]
-urlpatterns += [
+urlpatterns[
     path('catalog/', include('catalog.urls')),
 ]
 
