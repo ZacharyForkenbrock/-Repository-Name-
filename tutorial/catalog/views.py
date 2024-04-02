@@ -23,9 +23,10 @@ def index(request):
         'num_authors': num_authors,
     }
 
-    class BookListView(generic.ListView):
+    class BookDetailView(generic.DetailView):
         model = Book
 
+    
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
 
