@@ -19,6 +19,7 @@ urlpatterns = [
     path('book/<uuid:pk>/renew/', views.renew_book_librarian, name='renew-book-librarian'),
     path('', RedirectView.as_view(url='catalog/')),
     path('authors/', views.AuthorListView.as_view(), name='authors'),
+    path('author/<int:pk>', views.AuthorDetailView.as_view(), name = 'author-detail'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
