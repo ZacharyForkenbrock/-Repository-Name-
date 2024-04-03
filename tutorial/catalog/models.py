@@ -6,6 +6,7 @@ import uuid
 from django.conf import settings
 from datetime import date
 
+
 #name model
 class MyModelName(models.Model):
 
@@ -49,6 +50,7 @@ class Book(models.Model):
     author = models.ForeignKey('Author', on_delete=models.RESTRICT, null=True)
     summary = models.TextField(
         max_length=1000, help_text="Enter a brief description of the book")
+
    
     isbn = models.CharField('ISBN', max_length=13,
                             unique=True,
@@ -74,6 +76,8 @@ class BookInstance(models.Model):
     book = models.ForeignKey('Book', on_delete=models.RESTRICT, null=True)
     imprint = models.CharField(max_length=200)
     due_back = models.DateField(null=True, blank=True)
+    borrower = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
 
     LOAN_STATUS = (
         ('m', 'Maintenance'),
@@ -117,5 +121,3 @@ class Author(models.Model):
 
     def __str__(self):
         return f'{self.last_name}, {self.first_name}'
-
-borrower = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True)
