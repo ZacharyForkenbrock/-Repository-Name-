@@ -6,6 +6,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Author
 import datetime
+from django.views import generic
 from django.contrib.auth.decorators import login_required, permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -70,6 +71,9 @@ class AuthorDelete(PermissionRequiredMixin, DeleteView):
                 reverse("author-delete", kwargs={"pk": self.object.pk})
             )
         
+class AuthorDetailView(generic.DetailView):
+    model = Author
+
 class BookListView(generic.ListView):
     model = Book
 
@@ -140,3 +144,12 @@ def renew_book_librarian(request, pk):
     }
 
     return render(request, 'catalog/book_renew_librarian.html', context)
+
+class AuthorListView(generic.ListView):
+    """Generic class-based list view for a list of authors."""
+    model = Author
+    paginate_by = 10
+    
+    def sendlist(request):
+
+        return render(request, 'catalog/myauthors.html', {})
